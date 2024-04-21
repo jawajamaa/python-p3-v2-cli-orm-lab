@@ -71,7 +71,6 @@ def list_employees():
     employees = Employee.get_all()
     for employee in employees:
         print(employee)
-        return employee
 
 def find_employee_by_name():
     name = input("Enter the Employee's name: ")
@@ -91,6 +90,7 @@ def create_employee():
     job_title = input("Enter the Employee's job title: ")
     department_id = input("Enter the Employee's Department ID: ")
     try:
+        department_id = int(department_id)
         employee = Employee.create(name, job_title, department_id)
         print(f'Success: {employee}')
     except Exception as exc:
