@@ -71,6 +71,7 @@ def list_employees():
     employees = Employee.get_all()
     for employee in employees:
         print(employee)
+        return employee
 
 def find_employee_by_name():
     name = input("Enter the Employee's name: ")
@@ -96,12 +97,38 @@ def create_employee():
         print("Error creating employee: ", exc)
 
 def update_employee():
-    pass
+    id_ = input("Enter the employee's id: ")
+    if employee := Employee.find_by_id(id_):
+        try:
+            name = input("Enter the employee's updated name: ")
+            employee.name = name
+            job_title = input("Enter the employee's new job_title: ")
+            employee.job_title = job_title
+            department_id = input("Enter the employee's new department_id: ")
+            employee.department_id = department_id
 
+            employee.update()
+            print(f'Success: {employee} updated!')
+        except Exception as exc:
+            print("Error updating employee: ", exc)
+    else:
+        print(f'employee {id_} not found')
 
 def delete_employee():
-    pass
+    id_ = input("Enter the employee's id: ")
+    if employee := Employee.find_by_id(id_):
+        employee.delete()
+        print(f'Employee {id_} deleted')
+    else:
+        print(f'Employee {id_} not found')
 
 
 def list_department_employees():
-    pass
+    id_ = input("Enter the department's id: ")
+    department = Department.find_by_id(id_)
+    employees = Employee.get_all()
+    print(department) if department else print(f'Department {id_} not found')
+    for employee in employees:
+        if employee.department_id == int(id_):
+            print(employee)
+    
