@@ -105,7 +105,7 @@ def update_employee():
             job_title = input("Enter the employee's new job_title: ")
             employee.job_title = job_title
             department_id = input("Enter the employee's new department_id: ")
-            employee.department_id = department_id
+            employee.department_id = int(department_id)
 
             employee.update()
             print(f'Success: {employee} updated!')
